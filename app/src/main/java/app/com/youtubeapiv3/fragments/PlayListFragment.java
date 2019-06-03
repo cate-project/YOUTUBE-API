@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import app.com.youtubeapiv3.DetailsActivity;
+import app.com.youtubeapiv3.MainActivity;
 import app.com.youtubeapiv3.R;
 import app.com.youtubeapiv3.adapters.VideoPostAdapter;
 import app.com.youtubeapiv3.interfaces.OnItemClickListener;
@@ -37,24 +38,25 @@ import app.com.youtubeapiv3.models.YoutubeDataModel;
  */
 public class PlayListFragment extends Fragment {
 
-    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyAdDix7i7a3an-gyXiquTV_14cIsr8-DZg";//here you should use your api key for testing purpose you can use this api also
-    private static String PLAYLIST_ID = "UU7V6hW6xqPAiUfataAZZtWA";//here you should use your playlist id for testing purpose you can use this api also
-    private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + PLAYLIST_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
+    public String GOOGLE_YOUTUBE_API_KEY = "AIzaSyDDNXQW5vUsBy91h_swoSAc_uFFAG14Clo";//here you should use your api key for testing purpose you can use this api also
+    public String PLAYLIST_ID = "PLHRoF1XPhCHXQhWkViQveuVa-k6P8_aD2";//here you should use your playlist id for testing purpose you can use this api also
+    public String PLAYLIST_GET_URL = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + PLAYLIST_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 
     private RecyclerView mList_videos = null;
     private VideoPostAdapter adapter = null;
     private ArrayList<YoutubeDataModel> mListData = new ArrayList<>();
 
+    public MainActivity mainActivity;
     public PlayListFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_play_list, container, false);
+        mainActivity = (MainActivity)getActivity();
+        PLAYLIST_GET_URL = mainActivity.PLAYLIST_GET_URL;
         mList_videos = (RecyclerView) view.findViewById(R.id.mList_videos);
         initList(mListData);
         new RequestYoutubeAPI().execute();
@@ -88,8 +90,8 @@ public class PlayListFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(CHANNLE_GET_URL);
-            Log.e("URL", CHANNLE_GET_URL);
+            HttpGet httpGet = new HttpGet(PLAYLIST_GET_URL);
+            Log.e("URL", PLAYLIST_GET_URL);
             try {
                 HttpResponse response = httpClient.execute(httpGet);
                 HttpEntity httpEntity = response.getEntity();
@@ -131,10 +133,10 @@ public class PlayListFragment extends Fragment {
                         if (json.getString("kind").equals("youtube#playlistItem")) {
                             YoutubeDataModel youtubeObject = new YoutubeDataModel();
                             JSONObject jsonSnippet = json.getJSONObject("snippet");
-                            String vedio_id = "";
+                            String video_id = "";
                             if (jsonSnippet.has("resourceId")) {
                                 JSONObject jsonResource = jsonSnippet.getJSONObject("resourceId");
-                                vedio_id = jsonResource.getString("videoId");
+                                video_id = jsonResource.getString("videoId");
 
                             }
                             String title = jsonSnippet.getString("title");
@@ -146,7 +148,7 @@ public class PlayListFragment extends Fragment {
                             youtubeObject.setDescription(description);
                             youtubeObject.setPublishedAt(publishedAt);
                             youtubeObject.setThumbnail(thumbnail);
-                            youtubeObject.setVideo_id(vedio_id);
+                            youtubeObject.setVideo_id(video_id);
                             mList.add(youtubeObject);
 
                         }

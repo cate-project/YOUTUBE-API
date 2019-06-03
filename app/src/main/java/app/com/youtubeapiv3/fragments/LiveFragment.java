@@ -37,7 +37,7 @@ import app.com.youtubeapiv3.models.YoutubeDataModel;
  */
 public class LiveFragment extends Fragment {
 
-    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyAdDix7i7a3an-gyXiquTV_14cIsr8-DZg";  //here you should use your api key for testing purpose you can use this api also
+    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyDDNXQW5vUsBy91h_swoSAc_uFFAG14Clo";  //here you should use your api key for testing purpose you can use this api also
     private static String CHANNEL_ID = "UCoMdktPbSTixAyNGwb-UYkQ";  //here you should use your channel id for testing purpose you can use this api also
     private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&channelId=" + CHANNEL_ID + "&eventType=live&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 

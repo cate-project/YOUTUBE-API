@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import app.com.youtubeapiv3.fragments.ChannelFragment;
 import app.com.youtubeapiv3.fragments.LiveFragment;
 import app.com.youtubeapiv3.fragments.PlayListFragment;
+import app.com.youtubeapiv3.fragments.CategoryFragment;
 
 /**
  * Created by mdmunirhossain on 12/18/17.
@@ -33,6 +34,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 LiveFragment tab3 = new LiveFragment();
                 return tab3;
+            case 3:
+                CategoryFragment tab4 = new CategoryFragment();
+                return tab4;
             default:
                 return null;
         }

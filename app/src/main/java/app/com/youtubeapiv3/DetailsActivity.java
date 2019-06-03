@@ -406,6 +406,8 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     }
 
+
+
     public void requestPermissionForReadExtertalStorage() throws Exception {
         try {
             ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
